@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //#7
+        // var sum=0;
+        // var num1=Number(prompt('첫번째 숫자'));
+        // var num2=Number(prompt('두번째 숫자'));
+        
+        // if(num1>num2){
+        //     for(var i=num2;i<=num1;i++){
+        //         sum+=i;
+        //     }
+        // }else if(num2>num1){
+        //     for(var i=num1;i<=num2;i++){
+        //         sum+=i;
+        //     }
+        // }else{
+        //     sum='같은 숫자입니다.'+num1;
+        // }
+        // console.log(sum);
+
+        //#8
+        // var id='grean', pwd='gr1234';
+        // var userid=prompt('아이디 입력'), userpwd=prompt('비밀번호 입력');
+        // if(id==userid && pwd==userpwd){
+        //     console.log('로그인 성공');
+        // }else{
+        //     console.log('로그인 실패');
+        // }
+
+        //#9
+        // var sum=0, avg=0;
+        // var kor=Number(prompt('국어 점수 입력'));
+        // var eng=Number(prompt('영어 점수 입력'));
+        // var math=Number(prompt('수학 점수 입력'));
+
+        // sum = kor+eng+math;
+        // avg = sum/3;
+
+        // console.log('총점: '+sum+' 평균: '+avg);
+        
+        //#10
+        function rps(){
+            var userwhat=prompt('가위 바위 보게임 \n가위 바위 보 중 하나를 입력하세요.');
+            var com=parseInt(Math.random()*3);
+            var user, comwhat;
+            switch(userwhat){
+                case '가위':
+                    user=0;
+                    break;
+                case '바위':
+                    user=1;
+                    break;
+                case '보':
+                    user=2;
+                    break;
+                case null:
+                    break;
+                default:
+                    console.log('잘못입력했습니다.');
+                    break;
+            }
+            switch(com){
+                case 0:
+                    comwhat='가위';
+                    break;
+                case 1:
+                    comwhat='바위';
+                    break;
+                case 2:
+                    comwhat='보';
+                    break;
+            }
+
+            switch(user-com){
+                case -2:
+                    console.log('이겼습니다.');
+                    console.log('유저: '+userwhat+' 컴퓨터:'+comwhat);                            break;
+                case -1:
+                    console.log('졌습니다.');
+                    console.log('유저: '+userwhat+' 컴퓨터:'+comwhat);
+                    break;
+                case 0:
+                    console.log('비겼습니다.');
+                    console.log('유저: '+userwhat+' 컴퓨터:'+comwhat);
+                    break;
+                case 1:
+                    console.log('이겼습니다.');
+                    console.log('유저: '+userwhat+' 컴퓨터:'+comwhat);
+                    break;
+                case 2:
+                    console.log('졌습니다.');
+                    console.log('유저: '+userwhat+' 컴퓨터:'+comwhat);
+                    break;
+            }
+        }
+        // rps();
+        
+        //#11
+        while(true){
+           var gamenum=Number(prompt('진행할 게임 횟수를 입력하세요.'));
+           for(var i=0;i<gamenum;i++){
+                rps();
+           }
+           var cont=prompt('계속 진행하시겠습니까?');
+           if(cont==null){
+               break;
+           }
+        }
+    </script>
+</body>
+</html>
