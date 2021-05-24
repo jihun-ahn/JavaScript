@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        dan:for(var i=2;i<10;i++){
+                for(var j=1;j<10;j++){
+                    console.log(i+'X'+j+'='+i*j)
+                    if(i==5 && j==5){
+                        break dan;
+                    }
+                }
+            }
+
+        
+        var id='green', password='st1234';
+        var userid=prompt('아이디 :'), userpwd=prompt('비밀번호 :');
+        if(id==userid && password==userpwd){
+            console.log('로그인 성공');
+        }else{
+            console.log('로그인 실패');
+        }
+
+
+    </script>
+</body>
+</html>

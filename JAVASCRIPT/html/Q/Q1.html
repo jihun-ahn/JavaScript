@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var width=Number(prompt('가로길이'));
+        var height=Number(prompt('세로길이'));
+        console.log('1. 사각형의 넓이 = '+width*height);
+        console.log('2. 삼각형의 넓이 = '+width*height/2);
+
+        var korscore=Number(prompt('국어 점수 입력'));
+        var engscore=Number(prompt('영어 점수 입력'));
+        var mathscore=Number(prompt('수학 점수 입력'));
+        var avg = (korscore+engscore+mathscore)/3;
+        console.log('3. 세 과목의 평균은 ? '+avg);
+
+        var salary=Number(prompt('월급'));
+        console.log('4. 연봉은? (세금20프로제외) '+salary*12*0.8);
+
+        var total, min, sec;
+        total = Number(prompt('초 입력'));
+        min = parseInt(total/60);
+        sec = total%60;
+        console.log('5. '+total+'초를 분초로 출력 ' +min+'분 '+sec+'초');
+        
+        var money=Number(prompt('금액'));
+        var unit=50000, oman, man, ocheon, cheon, obaeck, baeck, osip, sip;
+        console.log('6. '+money+'원을 지폐로환산')
+        oman=parseInt(money/unit);
+        money%=unit;
+        unit/=parseInt(5);
+        man=parseInt(money/unit);
+        money%=unit;
+        unit/=parseInt(2);
+        
+        ocheon=parseInt(money/unit);
+        money%=unit;
+        unit/=parseInt(5);
+        cheon=parseInt(money/unit);
+        money%=unit;
+        unit/=parseInt(2);
+
+        obaeck=parseInt(money/unit);
+        money%=unit;
+        unit/=parseInt(5);
+        
+        baeck=parseInt(money/unit);
+        money%=unit;
+        unit/=parseInt(2);
+
+        osip=parseInt(money/unit);
+        money%=unit;
+        unit/=parseInt(5);        
+        sip=parseInt(money/unit);
+        money%=unit;
+        unit/=parseInt(2);
+
+
+        console.log('오만원권 '+oman+'장',
+                    '만원권 '+man+'장',
+                    '오천원권 '+ocheon+'장',
+                    '천원권 '+cheon+'장',
+                    '오백원 '+obaeck+'개',
+                    '백원 '+baeck+'개',
+                    '오십원 '+osip+'개',
+                    '십원 '+sip+'개'        );
+
+        var intnum=Number(prompt('정수 입력'));
+        console.log('7. 어떤 정수의 값이 음수인지 양수인지 판단해서 음수면 ‘음수’ 양수면 ‘양수’ 0이면 ‘0’ 을 출력하는 코드를 작성하세요' +intnum);
+        (intnum>0)?console.log('양수'):(intnum<0)?console.log('음수'):console.log('0');
+        
+        
+        var num=Number(prompt('점수 입력 0~100'));
+        console.log('8.점수에 따라 등급을 출력해보자 '+num);
+
+        (num>=90)?console.log('A'):(num>=80)?console.log('B'):(num>=70)?console.log('C'):
+        (num>=60)?console.log('D'):console.log('F');
+
+
+    </script>
+</body>
+</html>
