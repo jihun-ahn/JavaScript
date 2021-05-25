@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Box(width, height, length){
+            this.width = width;
+            this.height = height;
+            this.length = length;
+        }
+        Box.prototype.volume = function(){
+            return this.width*this.height*this.length;
+        }
+
+        var box1 = new Box(3,4,5);
+        var box2 = new Box(7, 8, 9);
+        var box3 = new Box(13, 14, 15);
+        
+        </script>
+    
+</body>
+</html>
