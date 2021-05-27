@@ -109,8 +109,8 @@
            for(var i=0;i<gamenum;i++){
                 rps();
            }
-           var cont=prompt('계속 진행하시겠습니까?');
-           if(cont==null){
+           var cont=confirm('계속 진행하시겠습니까?');
+           if(!cont){
                break;
            }
         }
