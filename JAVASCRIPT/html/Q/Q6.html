@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .addline{
+            text-decoration: line-through;
+        }
+    </style>
+    
+</head>
+<body>
+    <!--
+        #1 
+        <button type="button" id="changeColor" onclick="changeColor()">색상 변경</button>
+    <script>
+        function changeColor(){
+            var a = ['red', 'orange', 'yellow', 'green', 'blue', 'navy', 'purple'];
+            var rand = Math.floor(Math.random()*a.length);
+            
+            var c = document.getElementsByTagName('body');
+            c[0].style.backgroundColor = a[rand];
+        }
+    </script> 
+    -->
+
+    <!-- 
+        #2
+    <script>
+        document.write('<table border="1">');
+        document.write('<tr>');
+        for(var i=1;i<10;i++){
+            
+            document.write('<td>'+i+'단<br>');
+            for(var j=1;j<10;j++){
+                document.write(i+'X'+j+'='+i*j+'<br>');
+            }
+            document.write('</td>');
+        }
+        document.write('</tr>');
+        document.write('</table>');
+    </script>
+    -->
+
+    <!-- 
+        #2-1
+
+    <script>
+        document.write('<table border="1">');
+        for(var k=0;k<3;k++){
+            document.write('<tr>');
+            for(var i=1;i<=3;i++){
+            gugudan(i+(k*3));
+            }
+            document.write('</tr>');
+        }
+            
+        document.write('</table>');
+        function gugudan(i) {
+            document.write('<td>'+i+'단<br>');
+            for(var j=1;j<10;j++){
+                document.write(i+'X'+j+'='+i*j+'<br>');
+            }
+            document.write('</td>');
+        }
+    </script>
+    -->
+
+    <!--
+        #3
+
+    
+    <form action="#" method="GET">
+        <fieldset>
+            <legend>회원가입</legend>
+            <ol>
+                <li>
+                    <label for="userId">아이디: </label>
+                    <input type="text" name="userId" id="userId" placeholder="아이디">
+                </li>
+                <li>
+                    <label for="userPwd">비밀번호: </label>
+                    <input type="text" name="userPwd" id="userPwd" placeholder="비밀번호">
+                </li>
+                <li>
+                    <label for="userName">이름: </label>
+                    <input type="text" name="userName" id="userName" placeholder="이름"> 
+                </li>
+                <input type="button" value="회원가입" onclick="signUp()">
+            </ol>
+        </fieldset>
+    </form>
+
+    <form action="#" method="GET">
+        <fieldset>
+            <legend>로그인</legend>
+            <ol>
+                <li>
+                    <label for="inId">아이디: </label>
+                    <input type="text" name="inId" id="inId" placeholder="아이디">
+                </li>
+                <li>
+                    <label for="inPwd">비밀번호: </label>
+                    <input type="text" name="inPwd" id="inPwd" placeholder="비밀번호">
+                </li>
+                <input type="button" value="로그인" onclick="signIn()">
+            </ol>
+        </fieldset>
+    </form>
+
+    <script>
+        var id = [], pwd = [], name1 = [];
+        function signUp() {
+            id.push(document.getElementById('userId').value);
+            pwd.push(document.getElementById('userPwd').value);
+            name1.push(document.getElementById('userName').value);
+            return alert('회원가입이 완료되었습니다.');
+        }
+
+        function signIn() {
+
+            var uId = document.getElementById('inId').value;
+            var uPwd = document.getElementById('inPwd').value;
+            if(id.indexOf(uId)!=-1 && pwd[id.indexOf(uId)]==uPwd){
+                alert(name1[id.indexOf(uId)]+'님 환영합니다.');
+            }else{
+                alert('아이디 또는 비밀번호가 틀렸습니다.')
+            }
+        }
+    </script>
+    -->
+
+    <!--
+         #4 
+        
+        
+
+    <form action="#" method="GET">
+        <fieldset>
+            <legend>성적 입력</legend>
+            <ol>
+                <li>
+                    <label for="userName">이름: </label>
+                    <input type="text" name="userName" id="userName" placeholder="이름">
+                </li>
+                <li>
+                    <label for="korScore">국어 점수: </label>
+                    <input type="text" name="korScore" id="korScore" placeholder="국어점수">
+                </li>
+                <li>
+                    <label for="engScore">영어 점수: </label>
+                    <input type="text" name="engScore" id="engScore" placeholder="영어점수"> 
+                </li>
+                <li>
+                    <label for="mathScore">수학 점수: </label>
+                    <input type="text" name="mathScore" id="mathScore" placeholder="수학점수"> 
+                </li>
+                <input type="button" value="저장" onclick="upload()">
+            </ol>
+        </fieldset>
+    </form>
+    <button type="button" onclick="check()">성적 조회</button>
+    <script>
+        var sName=[], kor=[], eng=[], math=[];
+        function check() {
+            var stuName = prompt('학생 이름 입력');
+
+            if(sName.indexOf(stuName)!=-1){
+                var idx=sName.indexOf(stuName);
+                alert('국어 점수: '+kor[idx]+' 영어 점수: '+eng[idx]+' 수학 점수: '+math[idx]);
+            }
+
+        }
+
+        function upload() {
+            sName.push(document.getElementById('userName').value);
+            kor.push(document.getElementById('korScore').value);
+            eng.push(document.getElementById('engScore').value);
+            math.push(document.getElementById('mathScore').value);
+            alert('저장 완료');
+        }
+    </script>
+
+    -->
+
+    <!-- #5 -->
+
+    <button type="button" onclick="addWork()">할일 기록</button>
+    <script>
+        function addWork() {
+            var work = prompt('할일을 입력하세요.');
+            var addBr = document.createElement('br');
+            var addbox = document.createElement('input');
+            var addatt = document.createAttribute("type");
+            addatt.value = "checkbox";
+            addbox.setAttributeNode(addatt);
+            var addatt2 = document.createAttribute("onclick");
+            addatt2.value = "toggle()";
+            addbox.setAttributeNode(addatt2);
+            var addatt3 = document.createAttribute("value");
+            addatt3.value = work;
+            addbox.setAttributeNode(addatt3);
+
+            document.body.appendChild(addBr);
+            document.body.appendChild(addbox);
+            
+
+        }
+
+        function strike() {
+            var line = document.getElementsByTagName('input');
+            if(line.hasAttribute('class')){
+                line.removeAttribute('class');
+            }else{
+                line.setAttribute('class', 'addline');
+            }
+        }
+    </script>
+       
+    <!-- 
+        #6 
+    -->
+
+</body>
+</html>
