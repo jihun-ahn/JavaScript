@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button type="button" id="click">Click Me</button>
+    <script>
+        // setTimeout(displaytime, 5000);
+
+        // setTimeout( function displaytime(){
+        //     var time = new Date();
+        //     alert('현재시간은 '+time.toLocaleString()+' 입니다.'); //localestring은 클라이언트의 시간
+        // },3000);
+
+        // setInterval(displaytime, 1000);
+
+        setInterval(function displaytime(){
+            console.log(new Date())
+            },1000);
+        function displaytime(){
+            var time = new Date();
+            alert('현재시간은 '+time.toLocaleString()+' 입니다.'); //localestring은 클라이언트의 시간
+        }
+        window.onload=function(){
+            var btn = document.getElementById('click');
+            btn.onclick=displaytime;
+            // btn.onclick=function(){
+            //     var time = new Date();
+            //     alert('현재시간은 '+time.toLocaleString()+' 입니다.'); //localestring은 클라이언트의 시간
+            // }
+        }
+    </script>
+</body>
+</html>

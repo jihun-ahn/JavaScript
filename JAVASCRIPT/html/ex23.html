@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="outer">
+        outer
+        <div id="inner1">inner1</div>
+        <div id="inner2">inner2</div>
+    </div>
+    <script>
+        window.onload = function() {
+            var outer = document.getElementById('outer');
+            var inner2 = document.getElementById('inner2');
+
+            outer.addEventListener('click', function(e){
+                console.log('outer capturing');
+            }, true);
+
+            outer.addEventListener('click', function(e){
+                console.log('outer bubbling');
+            }, false);
+
+            inner2.addEventListener('click', function(e){
+                console.log('inner2 bubbling first');
+                e.stopPropagation();//이벤트 전파 차단 => 이벤트가 외부로 나오지못하게함
+                // e.stopImmediatePropagation();//이벤트 전파 일시정지 => 이벤트 효과 차단
+            }, false);
+
+            inner2.addEventListener('click', function(e){
+                console.log('inner2 bubbling second');
+            }, false);
+            
+        }
+    </script>
+</body>
+</html>

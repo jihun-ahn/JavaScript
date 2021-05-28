@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="#" method="POST" id="form1">
+        이름 : <input type="text" name="username" id="username"><br>
+        취미 : 
+        <input type="checkbox" name="hobby" id="movie" value="movie">영화감상
+        <input type="checkbox" name="hobby" id="game" value="game">게임
+        <input type="checkbox" name="hobby" id="fishing" value="fishing">낚시<br>
+        성별 : 
+        <input type="radio" name="gender" id="male" value="male">남성
+        <input type="radio" name="gender" id="female" value="female">여성<br>
+        직업 :
+        <select name="job" id="job">
+            <option value="Front">프론트엔드 개발자</option>
+            <option value="Back">백엔드 개발자</option>
+            <option value="DevOps">데브옵스 개발자</option>
+        </select><br>
+        최후의 변론: <br>
+        <textarea name="defence" id="defence" cols="30" rows="10"></textarea>
+        <input type="button" value="채우기" onclick="fill()">
+        <input type="submit" value="제출" onclick="return ok()">
+
+        <script>
+            function fill(){
+                var f = document.forms.form1;
+                f.username.value = '서유기';
+                f.movie.checked=true;
+                f.female.checked=true;
+                f.job.selectedIndex=2;
+                f.defence.value="만세";
+            }
+            function ok(){
+                var f = document.forms.form1;
+                var name = f.username.value;
+                var hobby = [];
+
+                console.log('이름: '+name);
+                if(f.movie.checked){
+                    hobby.push(f.movie.value);
+                }
+                if(f.game.checked){
+                    hobby.push(f.game.value);
+                }
+                if(f.fishing.checked){
+                    hobby.push(f.fishing.value);
+                }
+                console.log('취미: '+hobby);
+
+                var gender;
+                if(f.male.checked){
+                    gender = f.male.value;
+                }else if(f.female.value){
+                    gender = f.female.value;
+                }else{
+                    gender=null;
+                }
+                console.log('성별: '+gender);
+                
+                var job = f.job.value;
+                console.log('직업: '+job);
+
+                return false;
+            }
+        </script>
+    </form>
+</body>
+</html>
