@@ -11,13 +11,14 @@
         //#1
         // function randomNum() {
         //     var a = new Array(3);
-        //     var rand,;
+        //     var rand;
         //     for(var i=0;i<3;i++){
         //         rand = Math.floor(Math.random()*9+1);
         //         a[i]=rand;
         //         for(var j=0;j<i;j++){
         //             if(a[j]==a[i]){
         //                 i--;
+        //                 break;
         //             }
         //         }
         //     }
@@ -97,31 +98,31 @@
         // }
         
         //#7
-        var comnum, usernum, count=0;
-        var numlist = [];
-        do{
-            usernum = Number(prompt('숫자를 입력해주세요 1~100'));
-        }while(usernum>100 || usernum<1)
-        var min=1, max=100;
-        while(true){
-            comnum = Math.floor(Math.random()*(max-min+1))+min;
-            if((numlist.indexOf(comnum))==-1){
-                numlist.push(comnum);
-            }else{
-                continue;
-            }
-            if(usernum>comnum){
-                max=usernum;
-                count++;
-            }else if(usernum<comnum){
-                min=usernum;
-                count++;
-            }else{
-                alert('정답은 '+comnum+' 컴퓨터가 시도한 횟수 '+count);
-                console.log(numlist);
-                break;
-            }
-        }
+        // var comnum, usernum, count=0;
+        // var numlist = [];
+        // do{
+        //     usernum = Number(prompt('숫자를 입력해주세요 1~100'));
+        // }while(usernum>100 || usernum<1)
+        // var min=1, max=100;
+        // while(true){
+        //     comnum = Math.floor(Math.random()*(max-min+1))+min;
+        //     if((numlist.indexOf(comnum))==-1){
+        //         numlist.push(comnum);
+        //     }else{
+        //         continue;
+        //     }
+        //     if(usernum>comnum){
+        //         max=usernum;
+        //         count++;
+        //     }else if(usernum<comnum){
+        //         min=usernum;
+        //         count++;
+        //     }else{
+        //         alert('정답은 '+comnum+' 컴퓨터가 시도한 횟수 '+count);
+        //         console.log(numlist);
+        //         break;
+        //     }
+        // }
 
     </script>
         

@@ -9,6 +9,9 @@
         .addline{
             text-decoration: line-through;
         }
+        li{
+            list-style-type: none;
+        }
     </style>
     
 </head>
@@ -24,7 +27,7 @@
             var c = document.getElementsByTagName('body');
             c[0].style.backgroundColor = a[rand];
         }
-    </script> 
+    </script>
     -->
 
     <!-- 
@@ -133,8 +136,8 @@
     </script>
     -->
 
-    <!--
-         #4 
+    
+       <!-- #4 
         
         
 
@@ -164,65 +167,104 @@
     </form>
     <button type="button" onclick="check()">성적 조회</button>
     <script>
-        var sName=[], kor=[], eng=[], math=[];
+        var users=[];
+        function upload(){
+            var user = {
+                name:document.getElementById('userName').value,
+                kor:document.getElementById('korScore').value,
+                eng:document.getElementById('engScore').value,
+                math:document.getElementById('mathScore').value
+            };
+            user.sum = parseInt(user.kor)+parseInt(user.eng)+parseInt(user.math);
+            user.avg = Math.floor(user.sum/3);
+            users.push(user);
+            alert('저장 완료');
+        }
         function check() {
             var stuName = prompt('학생 이름 입력');
 
-            if(sName.indexOf(stuName)!=-1){
-                var idx=sName.indexOf(stuName);
-                alert('국어 점수: '+kor[idx]+' 영어 점수: '+eng[idx]+' 수학 점수: '+math[idx]);
+            for(var i=0;i<users.length;i++){
+                if(users[i].name==stuName){
+                    alert(
+                    '학생 이름: '+users[i].name+
+                    '\n국어 점수: '+users[i].kor+
+                    '\n영어 점수: '+users[i].eng+
+                    '\n수학 점수: '+users[i].math+
+                    '\n합계: '+users[i].sum+
+                    '\n평균: '+users[i].avg);
+                }
             }
-
         }
+    </script> -->
 
-        function upload() {
-            sName.push(document.getElementById('userName').value);
-            kor.push(document.getElementById('korScore').value);
-            eng.push(document.getElementById('engScore').value);
-            math.push(document.getElementById('mathScore').value);
-            alert('저장 완료');
-        }
-    </script>
+   
 
-    -->
-
-    <!-- #5 -->
+    <!-- #5
 
     <button type="button" onclick="addWork()">할일 기록</button>
     <script>
         function addWork() {
+            var list = document.createElement('li');
             var work = prompt('할일을 입력하세요.');
-            var addBr = document.createElement('br');
-            var addbox = document.createElement('input');
-            var addatt = document.createAttribute("type");
-            addatt.value = "checkbox";
-            addbox.setAttributeNode(addatt);
-            var addatt2 = document.createAttribute("onclick");
-            addatt2.value = "toggle()";
-            addbox.setAttributeNode(addatt2);
-            var addatt3 = document.createAttribute("value");
-            addatt3.value = work;
-            addbox.setAttributeNode(addatt3);
-
-            document.body.appendChild(addBr);
-            document.body.appendChild(addbox);
-            
-
+            var addchk = document.createElement('input');
+            addchk.setAttribute("type", "checkbox");
+            addchk.addEventListener("change", function(e){
+                var sNode = e.currentTarget.nextElementSibling;
+                sNode.classList.toggle('addline');
+            }, false);
+            var addp = document.createElement('span');
+            var text = document.createTextNode(work);
+            var adddel = document.createElement('input');
+            adddel.setAttribute("type", "button");
+            adddel.setAttribute("value", "삭제");
+            adddel.addEventListener("click", function(e){
+                document.body.removeChild(list);
+            }, false);
+            document.body.appendChild(list);
+            list.appendChild(addchk);
+            list.appendChild(addp); 
+            addp.appendChild(text);
+            list.appendChild(adddel);
         }
-
-        function strike() {
-            var line = document.getElementsByTagName('input');
-            if(line.hasAttribute('class')){
-                line.removeAttribute('class');
-            }else{
-                line.setAttribute('class', 'addline');
-            }
-        }
-    </script>
+    </script> -->
        
     <!-- 
         #6 
     -->
+    <table border="1">
+        <thead>
+            <tr>
+                <td><input type="button" value="단어 등록" id="ins"></td>
+                <td><input type="button" value="마지막 단어 삭제" id="dellast"></td>
+                <td><input type="button" value="번호 삭제" id="delnum"></td>
+                <td><input type="button" value="특정 단어 삭제" id="delword"></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>#</th>
+                <th>영단어</th>
+                <th colspan="2">뜻</th>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        var insert = document.getElementById('ins');
+        insert.addEventListener("click", function(e){
+            var addTr = document.createElement('tr');
+            var addTd = document.createElement('td');
+            var engWord = document.createTextNode(prompt('영단어 입력'));
+            var korWord = document.createTextNode(prompt('뜻 입력'));
+
+            var a = document.getElementsByTagName('tbody');
+            addTr.appendChild(addTd);
+            addTd.appendChild(engWord);
+            addTr.appendChild(addTd);
+            addTd.appendChild(engWord);
+        }, false);
+
+        
+    </script>
 
 </body>
 </html>
