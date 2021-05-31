@@ -10,14 +10,22 @@
             text-decoration: line-through;
         }
         li{
-            list-style-type: none;
+            list-style-type: decimal;
+        }
+        img{
+            cursor: pointer;
+        }
+        body{
+            border: black 1px solid;
+        }
+        h1{
+            text-align: center;
         }
     </style>
     
 </head>
 <body>
-    <!--
-        #1 
+    <!-- #1 
         <button type="button" id="changeColor" onclick="changeColor()">색상 변경</button>
     <script>
         function changeColor(){
@@ -30,8 +38,8 @@
     </script>
     -->
 
-    <!-- 
-        #2
+    
+    <!-- #2
     <script>
         document.write('<table border="1">');
         document.write('<tr>');
@@ -45,21 +53,17 @@
         }
         document.write('</tr>');
         document.write('</table>');
-    </script>
-    -->
-
-    <!-- 
-        #2-1
-
-    <script>
+    </script> -->
+   
+    <!-- <script>
         document.write('<table border="1">');
-        for(var k=0;k<3;k++){
-            document.write('<tr>');
-            for(var i=1;i<=3;i++){
-            gugudan(i+(k*3));
+            for(var i=1;i<=9;i++){
+                if(i%3==1){
+                    document.write('<tr>');
+                }
+                gugudan(i);
             }
             document.write('</tr>');
-        }
             
         document.write('</table>');
         function gugudan(i) {
@@ -69,11 +73,34 @@
             }
             document.write('</td>');
         }
-    </script>
-    -->
+    </script> -->
 
-    <!--
-        #3
+    <!-- <table border="1">
+
+    </table>
+    <script>
+        var gugudan='';
+        var table = document.getElementsByTagName('table')[0];
+
+        for(var i=1;i<10;i++){
+            if(i%3==1){
+                var tr=document.createElement('tr');
+            }
+            var td=document.createElement('td');
+            gugudan="";
+            gugudan+=(i+'단<br>');
+            for(var j=1;j<10;j++){
+                gugudan+=(i+'X'+j+'='+(i*j)+'<br>');
+            }
+            td.innerHTML=gugudan;
+            tr.appendChild(td);
+            if(i%3==0){
+                table.appendChild(tr);
+            }
+        }
+    </script> -->
+
+    <!-- #3
 
     
     <form action="#" method="GET">
@@ -137,7 +164,7 @@
     -->
 
     
-       <!-- #4 
+    <!-- #4 
         
         
 
@@ -199,12 +226,15 @@
 
    
 
-    <!-- #5
+    <!-- #5 -->
+    <!-- <h1>to-Do 리스트</h1>
+    <input type="button" value="할일 추가" onclick="addList()">
+    <ol id=toDoList>
 
-    <button type="button" onclick="addWork()">할일 기록</button>
-    <script>
-        function addWork() {
-            var list = document.createElement('li');
+    </ol>  -->
+    <!-- <script> //내가짠것
+        function addList() {
+            var li = document.createElement('li');
             var work = prompt('할일을 입력하세요.');
             var addchk = document.createElement('input');
             addchk.setAttribute("type", "checkbox");
@@ -213,24 +243,61 @@
                 sNode.classList.toggle('addline');
             }, false);
             var addp = document.createElement('span');
-            var text = document.createTextNode(work);
+            addp.innerHTML = work;
             var adddel = document.createElement('input');
             adddel.setAttribute("type", "button");
             adddel.setAttribute("value", "삭제");
             adddel.addEventListener("click", function(e){
-                document.body.removeChild(list);
+                document.body.removeChild(li);
             }, false);
-            document.body.appendChild(list);
-            list.appendChild(addchk);
-            list.appendChild(addp); 
-            addp.appendChild(text);
-            list.appendChild(adddel);
+            document.body.appendChild(li);
+            li.appendChild(addchk);
+            li.appendChild(addp); 
+            li.appendChild(adddel);
         }
     </script> -->
-       
-    <!-- 
-        #6 
-    -->
+    <!-- <script>
+        function addList(){
+            var li = document.createElement('li');
+            var ol = document.getElementById('toDoList');
+            
+            var chk = document.createElement('input');
+            chk.setAttribute('type', 'checkbox');
+            chk.setAttribute('onchange', 'chkLine(this)');
+
+            var span = document.createElement('span');
+            var img = document.createElement('img');
+            img.setAttribute('src', './img/pngaaa.com-28943.png');
+            img.setAttribute('alt', 'cancel');
+            img.setAttribute('width', '20px');
+            img.setAttribute('height', '20px');
+            // img.setAttribute('onclick', 'delList(this)');
+            img.addEventListener('click', function(e){ // e : 클릭 이벤트 객체
+                e.currentTarget.parentNode.remove();
+            }, false);
+
+            var todo = prompt("할일을 입력 해주세요");
+
+            li.appendChild(chk);
+            li.appendChild(span);
+            span.innerHTML = todo;
+            li.appendChild(img);
+            ol.appendChild(li);
+        }
+        // function delList(e){ //e : delList를 발생시키는 노드
+        //     var list = e.parentNode;
+        //     list.remove();            
+        // }
+
+        function chkLine(e){
+            var span = e.nextElementSibling;
+            span.classList.toggle('addline');
+            console.log(span);
+        }
+    </script> -->
+     
+    <!-- #6
+    내가짠거
     <table border="1">
         <thead>
             <tr>
@@ -240,7 +307,7 @@
                 <td><input type="button" value="특정 단어 삭제" id="delword"></td>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="list">
             <tr>
                 <th>#</th>
                 <th>영단어</th>
@@ -250,21 +317,318 @@
     </table>
     <script>
         var insert = document.getElementById('ins');
+        var delete_last = document.getElementById('dellast');
+        var delete_num = document.getElementById('delnum');
+        var delete_word = document.getElementById('delword');
+        var word = [];
+        var count=1;
+
         insert.addEventListener("click", function(e){
             var addTr = document.createElement('tr');
-            var addTd = document.createElement('td');
+            addTr.setAttribute('id', 'tr'+count);
+            var addTd1 = document.createElement('td');
+            addTd1.setAttribute('class', 'cnt');
+            var addTd2 = document.createElement('td');
+            var addTd3 = document.createElement('td');
+            addTd3.setAttribute('colspan', '2');
+            var num = document.createTextNode(count);
             var engWord = document.createTextNode(prompt('영단어 입력'));
+            word.push(engWord.nodeValue);
             var korWord = document.createTextNode(prompt('뜻 입력'));
-
-            var a = document.getElementsByTagName('tbody');
-            addTr.appendChild(addTd);
-            addTd.appendChild(engWord);
-            addTr.appendChild(addTd);
-            addTd.appendChild(engWord);
+            var node = document.getElementById('list');
+            node.appendChild(addTr);            
+            addTr.appendChild(addTd1);
+            addTd1.appendChild(num);
+            addTr.appendChild(addTd2);
+            addTd2.appendChild(engWord);
+            addTr.appendChild(addTd3);
+            addTd3.appendChild(korWord);
+            count++;
         }, false);
 
-        
+        delete_last.addEventListener("click", function(e){
+            count--;
+            var list=document.getElementById('list');
+            var last=document.getElementById('tr'+count);
+            list.removeChild(last);
+        }, false);
+
+        delete_num.addEventListener("click", function(e){
+            var list_num = Number(prompt('삭제할 번호를 입력하세요.'));
+            var list=document.getElementById('list');
+            var select_num = document.getElementById('tr'+list_num);
+            
+            list.removeChild(select_num);
+            count--;
+            cnt();
+
+        }, false);
+
+        delete_word.addEventListener("click", function(e){
+            var list=document.getElementById('list');
+            var list_word = prompt('삭제할 단어를 입력하세요.');
+            var word_num;
+            if(word.indexOf(list_word)!=-1){
+                word_num = word.indexOf(list_word);
+                console.log(word_num);
+                var select_num = document.getElementById('tr'+(word_num));
+                list.removeChild(select_num);
+                word.splice(word_num, 1);
+                cnt();
+                count--;
+            }else{
+                alert('단어가 존재하지 않습니다.');
+            }
+        }, false);
+
+        function cnt(){
+            var cnt = document.getElementsByClassName('cnt');
+
+            for(var i=0;i<cnt.length;i++){
+                console.log(cnt[i].innerHTML);
+                cnt[i].innerHTML=i+1;
+
+            }
+        }
+    </script> -->
+    
+    <h1>영단어장 만들기</h1>
+    <!-- <input type="button" value="단어 추가" onclick="addWord()">
+    <input type="button" value="단어 삭제(마지막 단어)" onclick="removeLastWord()">
+    <input type="button" value="단어 삭제(번호)" onclick="removeNumber()">
+    <input type="button" value="단어 삭제(단어)" onclick="removeEngWord()">
+    <ol id="wordList">
+        <li>google : 구글</li>
+        <li>naver : 네이버</li>
+        <li>kakao : 카카오</li>
+        <li>coupang : 쿠팡</li>
+        <li>ms : 마이크로소프트</li>
+    </ol> -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th><input type="button" value="단어 추가" id="addWord"></th>
+                <th><input type="button" value="단어 삭제(마지막 단어)" id="removeLastWord"></th>
+                <th><input type="button" value="단어 삭제(번호)" id="removeNumber"></th>
+                <th><input type="button" value="단어 삭제(단어)" id="removeEngWord"></th>
+            </tr>
+            <tr>
+                <th>#</th>
+                <th colspan="2">영 단어</th>
+                <th colspan="2">한글 뜻</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <tr class="wordList">
+                <td class="cnt"></td>
+                <td class="engWord" colspan="2">google</td>
+                <td class="korWork" colspan="2">구글</td>
+            </tr>
+            <tr class="wordList">
+                <td class="cnt"></td>
+                <td class="engWord" colspan="2">naver</td>
+                <td class="korWork" colspan="2">네이버</td>
+            </tr>
+            <tr class="wordList">
+                <td class="cnt"></td>
+                <td class="engWord" colspan="2">kakao</td>
+                <td class="korWork" colspan="2">카카오</td>
+            </tr>
+            <tr class="wordList">
+                <td class="cnt"></td>
+                <td class="engWord" colspan="2">coupang</td>
+                <td class="korWork" colspan="2">쿠팡</td>
+            </tr>
+            <tr class="wordList">
+                <td class="cnt"></td>
+                <td class="engWord" colspan="2">ms</td>
+                <td class="korWork" colspan="2">마이크로소프트</td>
+            </tr> -->
+        </tbody>
+    </table>
+    <script>
+        var addword = document.getElementById('addWord');
+        var removeLastWord = document.getElementById('removeLastWord');
+        var removeNumber = document.getElementById('removeNumber');
+        var removeEngWord = document.getElementById('removeEngWord');
+
+        addword.addEventListener('click', function(){
+            var engWord = prompt('영 단어 입력');
+            var korWord = prompt('한글 뜻 입력');
+
+            var tb = document.getElementsByTagName('tbody')[0];
+
+            var tr = document.createElement('tr');
+            var trNum = document.getElementsByClassName('wordList');
+            tb.appendChild(tr);
+            tr.setAttribute('class', 'wordList');
+            
+            var td = document.createElement('td');
+            td.setAttribute('class', 'cnt');
+            td.innerHTML = trNum.length;
+            tr.appendChild(td);
+
+            var td = document.createElement('td');
+            td.setAttribute('class', 'engWord');
+            td.setAttribute('colspan', '2');
+            td.innerHTML = engWord;
+            tr.appendChild(td);
+
+            var td = document.createElement('td');
+            td.setAttribute('class', 'korWord');
+            td.setAttribute('colspan', '2');
+            td.innerHTML = korWord;
+            tr.appendChild(td);
+
+        },false);
+
+        removeLastWord.addEventListener('click', function(){
+            var list = document.getElementsByClassName('wordList');
+            if(!list[0]){
+                alert('삭제할 대상이 없습니다.');
+            }else{
+                list[list.length-1].remove();
+            }
+
+            cnt();
+        },false);
+
+        removeNumber.addEventListener('click', function(){
+            var num = Number(prompt('삭제할 번호를 입력하세요.'));
+            var li = document.getElementsByClassName('wordList');
+            if((li[num-1])){
+                li[num-1].remove();
+            }else if(li.length<num || num<=0){
+                alert('번호를 잘못 입력했습니다.');
+            }else{
+                alert('삭제할 대상이 없습니다.');
+            }
+
+            cnt();
+        },false);
+
+        removeEngWord.addEventListener('click', function(){
+            var eng = prompt('삭제할 단어를 입력하세요.');
+            var list = document.getElementsByClassName('wordList');
+            var engWord = document.getElementsByClassName('engWord');
+            var chk = -1;
+            for(var i=0;i<engWord.length;i++){
+                if(engWord[i].innerHTML==eng){
+                    list[i].remove();
+                    chk=i;
+                    break;
+                }
+                // 다른 로직
+                // if(li[i].innerHTML.substr(0, li[i].innerHTML.indexOf(' '))==eng){
+                //     li[i].remove();
+                //     chk=i;
+                // }
+            }
+            if(chk==-1){
+                alert('삭제할 대상이 없습니다.')
+            }
+
+            cnt();
+        },false);
+
+        // 함수
+        // function addWord(){
+        //     var engWord = prompt('영 단어 입력');
+        //     var korWord = prompt('한글 뜻 입력');
+
+        //     var tb = document.getElementsByTagName('tbody')[0];
+
+        //     var tr = document.createElement('tr');
+        //     var trNum = document.getElementsByClassName('wordList');
+        //     tb.appendChild(tr);
+        //     tr.setAttribute('class', 'wordList');
+            
+
+        //     var td = document.createElement('td');
+        //     td.setAttribute('class', 'cnt');
+        //     td.innerHTML = trNum.length;
+        //     tr.appendChild(td);
+
+        //     var td = document.createElement('td');
+        //     td.setAttribute('class', 'engWord');
+        //     td.setAttribute('colspan', '2');
+        //     td.innerHTML = engWord;
+        //     tr.appendChild(td);
+
+        //     var td = document.createElement('td');
+        //     td.setAttribute('class', 'korWord');
+        //     td.setAttribute('colspan', '2');
+        //     td.innerHTML = korWord;
+        //     tr.appendChild(td);
+
+        // }
+
+        // function removeLastWord(){
+        //     var list = document.getElementsByClassName('wordList');
+        //     if(!list[0]){
+        //         alert('삭제할 대상이 없습니다.');
+        //     }else{
+        //         list[list.length-1].remove();
+        //     }
+
+        //     cnt();
+        // }
+
+        // function removeNumber(){
+        //     var num = Number(prompt('삭제할 번호를 입력하세요.'));
+        //     var li = document.getElementsByClassName('wordList');
+        //     if((li[num-1])){
+        //         li[num-1].remove();
+        //     }else if(li.length<num || num<=0){
+        //         alert('번호를 잘못 입력했습니다.');
+        //     }else{
+        //         alert('삭제할 대상이 없습니다.');
+        //     }
+
+        //     cnt();
+        // }
+
+        // function removeEngWord(){
+        //     var eng = prompt('삭제할 단어를 입력하세요.');
+        //     var list = document.getElementsByClassName('wordList');
+        //     var engWord = document.getElementsByClassName('engWord');
+        //     var chk = -1;
+        //     for(var i=0;i<engWord.length;i++){
+        //         if(engWord[i].innerHTML==eng){
+        //             list[i].remove();
+        //             chk=i;
+        //             break;
+        //         }
+        //         // if(li[i].innerHTML.substr(0, li[i].innerHTML.indexOf(' '))==eng){
+        //         //     li[i].remove();
+        //         //     chk=i;
+        //         // }
+        //     }
+        //     if(chk==-1){
+        //         alert('삭제할 대상이 없습니다.')
+        //     }
+
+        //     cnt();
+        // }
+
+        function cnt(){
+            var cnt = document.getElementsByClassName('cnt');
+            for(var i=0;i<cnt.length;i++){
+                cnt[i].innerHTML = i+1;
+            }
+        }
     </script>
+
+
+    <!-- 
+        #7 
+    -->
+
+
+
+
+
 
 </body>
 </html>
