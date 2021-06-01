@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery/jquery-3.6.0.js"></script>
+</head>
+<body>
+    <h1>안녕하세요.</h1>
+    <h1>안녕하세요.</h1>
+    <h1>안녕하세요.</h1>
+    <img>
+    <img>
+    <img>
+    <h2></h2>
+    <h2></h2>
+    <h2></h2>
+    <script>
+        // 2. 선택한 문서 객체에 효과(기능) 적용하는 법 - 함수(제이쿼리 내장 메서드)
+
+        // 메서드 기본 기능 => 속성 값을 부여하거나 꺼낼 때 사용하는 메서드
+        // 1. setter 기능 : 값을 지정할 때 사용 (=> 반환값 : jQuery 객체, 메서드 체이닝)
+
+        // 값 지정 방법
+        // 가. (문자열, 문자열)
+        // $('h1').css('color', 'red');
+        // $('h1').html('반갑습니다.');  // =innerHTML
+
+        // 나. (객체)
+        // $('h1').css({
+        //     color:'red',
+        //     backgroundColor:'orange',
+        //     textAlign:'center'
+        // });
+        // css 값을 정할 때 이름을 붙여 사용해도되고 -을 이용해도 된다.
+        // 다만 이름을 문자열이 아닌 값으로 사용하는 경우는 자바스크립트 문법을 따른다. (-를 붙이는 경우 에러)
+
+        // 다. (함수)
+        var arrayColor = ['red', 'blue', 'green'];
+        $('h1').css('color', function(index){
+            return arrayColor[index];
+        });
+
+        // 라. 객체와 함수 사용
+        var backColor = ['pink', 'skyblue', 'lightgreen'];
+
+        $('h1').css({
+            color:function(index){return arrayColor[index];},
+            backgroundColor:function(index){return backColor[index];} 
+        });
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        //2. getter 기능 : 값을 꺼내올 때 사용
+        // 기본 사용 방법 : setter와 유사 => 매개값을 하나 생략. (=> 반환값 문자열)
+        var value = $('h1').css('color');   //객체가 여러 개인 경우 첫 번째 것만 반환
+        alert(value);
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        // 몇몇 메서드를 살펴 봅시다.
+        // attr 메서드 = 속성을 부여할때 사용하는 메서드
+        $('img').attr('src', 'http://placehold.it/100x100');
+
+        // 객체
+        $('img').attr({
+            'src':'http://placehold.it/100x100',
+            'alt':'test image'
+        });
+        // 함수
+        $('img').attr({
+            'src':function(index){
+                return 'http://placehold.it/100x'+(index+1)*100;
+            },
+            'alt':'test image'
+        });
+
+        // 값을 알아올 때
+        var test = $('img').attr('src');
+        alert(test);
+        
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        // html 메서드 : 노드객체에 문자열을 삽입할때 사용
+        //                - 내부에 태그가 존재할 때 알아서 해석
+
+        // 기본 setter
+        $('h2').html('반갑습니다.');
+
+        // 함수 사용
+        $('h2').html(function(index){
+            return '안녕히 가세요 - '+(index+1);
+        });
+
+        // 태그 요소를 삽입해 봅시다.
+        // $('h2').html('<img src="http://placehold.it/100x100">안녕하세요');
+        //              innerHTML과 같은 효과
+
+
+        // 비교 -> text() 태그 인식X
+        // $('h2').text('<img src="http://placehold.it/100x100">안녕하세요');
+        //      textContent와 같은 효과
+
+        // 기본 getter (내용 생략)
+        var text1 = $('h2').html(); // 첫번째 객체의 값만 추출
+        alert(text1);               // => 가급적 객체를 선택할 때 세부적으로 선택하는 것을 권장
+        
+        var text2 = $('h2').text(); // 모든 객체 내용을 텍스트화 해서 추출
+        alert(text2);
+    </script>
+</body>
+</html>

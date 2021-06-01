@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery/jquery-3.6.0.js"></script>
+</head>
+<body>
+    <h1>Hello 1</h1>
+    <h1>Hello 2</h1>
+    <h1>Hello 3</h1>
+    <h1>Hello 4</h1>
+    <h1>Hello 5</h1>
+
+    <script>
+        // $('h1'); 위 h1태그 5개를 모두 선택한 상황 => 배열 형태
+
+        // 제이쿼리가 배열을 관리하는 방법
+        // 1. 직접 생성한 배열
+        var arr = ['red', 'blue', 'green', 'yellow', 'pink'];
+
+        // 가. each(배열, 함수) => 배열의 요소를 하나씩 꺼내서 함수를 적용한다.
+        // $.each(arr, function(index, item){ // index : 배열의 인덱스 번호, item : 배열의 요소
+        //     alert(index+':'+item);
+        // });
+
+        // 나. $(배열).each(함수)
+        // $(arr).each(function(index, item){
+        //     alert(index+':'+item);
+        // });
+
+        // 2. 문서 객체를 담은 유사 배열
+        // 문서 객체를 담은 배열 모든 요소에 효과를 적용하려면 그냥 사용
+        $('h1').css('color', 'red');
+
+        // 각각 다른 노드 객체에 적용하려면 each함수 사용
+        $('h1').each(function(index, item){
+            // $(item).css('backgroundColor', arr[index]);
+            $(this).css('backgroundColor', arr[index]);
+        });
+    </script>
+</body>
+</html>
