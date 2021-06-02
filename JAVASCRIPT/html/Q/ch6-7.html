@@ -10,6 +10,15 @@
             font-size: 25px;
             text-align: center;
         }
+        .sun{
+            color: red;
+        }
+        .sat{
+            color: steelblue;
+        }
+        .sDate{
+            background-color: powderblue;
+        }
     </style>
 </head>
 <body>
@@ -21,71 +30,105 @@
                 <th id="ym" colspan="5"><!-- YYYY년 MM월 --></th>
                 <th><input type="button" value=">" id="rightMonth"></th>
             </tr>
-            <tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>
+            <tr><th class="sun">일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th class="sat">토</th></tr>
         </thead>
         <tbody>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <!-- 0~6 -->
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <!-- 7~13 -->
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <!-- 14~20 -->
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <!-- 21~27 -->
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <!-- 28~34 -->
-            <tr id="last"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr> <!-- 35~41 -->
+            <tr><td class="sun"></td><td></td><td></td><td></td><td></td><td></td><td class="sat"></td></tr> <!-- 0~6 -->
+            <tr><td class="sun"></td><td></td><td></td><td></td><td></td><td></td><td class="sat"></td></tr> <!-- 7~13 -->
+            <tr><td class="sun"></td><td></td><td></td><td></td><td></td><td></td><td class="sat"></td></tr> <!-- 14~20 -->
+            <tr><td class="sun"></td><td></td><td></td><td></td><td></td><td></td><td class="sat"></td></tr> <!-- 21~27 -->
+            <tr><td class="sun"></td><td></td><td></td><td></td><td></td><td></td><td class="sat"></td></tr> <!-- 28~34 -->
+            <tr id="last"><td class="sun"></td><td></td><td></td><td></td><td></td><td></td><td class="sat"></td></tr> <!-- 35~41 -->
         </tbody>
     </table>
 
     <script>
-
         var date = document.getElementById('selectDate');
         var tbody = document.getElementsByTagName('tbody')[0];
         var td = document.getElementsByTagName('td');
-        var tday = new Date();
-        var year = tday.getFullYear();
-        var month = tday.getMonth()+1;
-        document.getElementById('ym').innerHTML = year+'년 '+month+'월';
-        tday.setDate(1);
-        var index =  tday.getDay();
-        console.log(index);
-        day(index, year, month);
+        var test;
+        today();
 
+        function today(){
+            var tday = new Date();
+            var year = tday.getFullYear();
+            var month = tday.getMonth()+1;
+            var d = tday.getDate();
+            var ymd = setDate(year, month, d); 
+            setYM(ymd);
+        }
         var left = document.getElementById('leftMonth');
         var right = document.getElementById('rightMonth');
         
         left.addEventListener('click', function(e){
             var a = date.value;
             var a2 = a.split('-');
-            var a3 = Number(a2[1])-1;
-            var a4 = String(a3);
-            if(a3%10==0){
-                date.value = a2[0]+'-'+'0'+a4+'-'+a2[2];
-            }else{
-                date.value = a2[0]+'-'+a4+'-'+a2[2];
-            }
+            a2[0] = Number(a2[0]);
+            a2[1] = Number(a2[1]);
+            a2[2] = Number(a2[2]);
+            var a3 = setDate(a2[0], a2[1]-1, a2[2]);
+            setYM(a3);
             
-
         }, false);
 
-        
         right.addEventListener('click', function(e){
-            tday.setMonth(tday.getMonth()+2);
+            var a = date.value;
+            var a2 = a.split('-');
+            a2[0] = Number(a2[0]);
+            a2[1] = Number(a2[1]);
+            a2[2]= Number(a2[2]);
+            var a3 = setDate(a2[0], a2[1]+1, a2[2]);
+            setYM(a3);
+            
         }, false);
 
-        date.addEventListener('change', function sd(e){
+        date.addEventListener('change', function(e){
             var a = e.currentTarget.value;
+            setYM(a);
+        }, false);
+
+        function setDate(y, m, d){
+            if(m==0){
+                m = String(12);
+                y -= 1;
+            }else if(m==13){
+                m = '0'+String(1);
+                y += 1; 
+            }
+            else if(m<=9){
+                m = '0'+String(m);
+            }else if(m<=12){
+                m = String(m);
+            }
+
+            if(d<=9){
+                d = '0'+String(d);
+            }else{
+                d = String(d);
+            }
+            return (y+'-'+m+'-'+d);
+        }
+
+
+        function setYM(a){
+            date.value=a;
             var val = a.split('-');
             year = val[0];
             month = val[1];
+            d = val[2];
             document.getElementById('ym').innerHTML = year+'년 '+month+'월';
 
             var a2 = new Date(a);
             a2.setDate(1);
             index = a2.getDay();
+            
+            setTd(index, year, month, d);
+        }
 
-            day(index, year, month);
-        }, false);
 
-
-        function day(idx, y, m){
+        function setTd(idx, y, m, d){
             var max;
+            d = Number(d);
             if(y%4==0 && m==2){
                 max = 29;
             }else if(m==2){
@@ -108,8 +151,13 @@
             }
             for(var i=0;i<max;i++){
                 td[i+idx].innerHTML = i+1;
-                console.log(i+idx);
             }
+
+            
+            if(document.querySelector('.sDate')!=null){
+                document.querySelector('.sDate').classList.remove('sDate');
+            }            
+            td[(idx+d)-1].classList.add('sDate');
         }
     </script>
 </body>
