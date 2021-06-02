@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>글 번호</th>
+                <th>글 제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+            </tr>
+        </thead>
+        <tbody id="postList">
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2"><input type="button" value="글 작성" onclick="gotoWrite()"></td>
+                <td colspan="2"><input type="button" value="전체 글 삭제" onclick="delPost()"></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script>
+        var tbody = document.getElementById('postList');
+
+
+        for(var i=0;i<localStorage.length;i++){
+            listLoad(i+1);
+        }
+        function listLoad(idx){
+            var tr = document.createElement('tr');
+            var tdNum = document.createElement('td');
+            var tdTitle = document.createElement('td');
+            var tdUserId = document.createElement('td');
+            var tdDate = document.createElement('td');
+            var loadStorage = localStorage.getItem('post'+idx);
+            var post = JSON.parse(loadStorage);
+            tdNum.innerHTML= post.num;
+            tdTitle.innerHTML= post.userId;
+            tdUserId.innerHTML= post.title;
+            tdDate.innerHTML= post.date;
+
+            console.log('a');
+            tr.appendChild(tdNum);
+            tr.appendChild(tdTitle);
+            tr.appendChild(tdUserId);
+            tr.appendChild(tdDate);
+
+            tbody.appendChild(tr);
+        }
+        
+        function gotoWrite(){
+            location.href="./ch7-1-2.html";   
+        }
+
+        function delPost(){
+            if(confirm('정말 삭제하시겠습니까?')){
+                localStorage.clear();
+                tbody.remove();
+            }
+        }
+    </script>
+</body>
+</html>

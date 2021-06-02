@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <table border="1px">
+        <thead>
+            <tr>
+                <th>🎈</th>
+                <th><input type="button" value="단어 추가" onclick="addWord()"></th>
+                <th><input type="button" value="마지막 단어 삭제" onclick="removeLastWord()"></th>
+                <th><input type="button" value="숫자로 단어 삭제" onclick="removeNumberWord()"></th>
+                <th><input type="button" value="단어로 단어 삭제" onclick="removeEngWord()"></th>
+            </tr>
+            <tr>
+                <th>🎈</th>
+                <th colspan="2">영 단어</th>
+                <th colspan="2">한글 뜻</th>
+            </tr>
+        </thead>
+        <tbody id="wordList">
+
+        </tbody>
+    </table>
+
+    <script>
+        function addWord(){
+            var eng = prompt('영 단어를 입력하세요');
+            var kor = prompt('한글 뜻을 입력하세요');
+
+            var tBody = document.getElementById('wordList');
+
+            var tr = document.createElement('tr');
+            tr.classList.add('wordTr');
+
+            var td = document.createElement('td');
+            var tdNum = document.createElement('td');
+            var tdEng = document.createElement('td');
+            var tdKor = document.createElement('td');
+
+            tdNum.classList.add('wordNum');
+
+            tdEng.setAttribute('colspan', '2');
+            tdEng.classList.add('wordEngTd');
+            tdEng.innerHTML = eng;
+
+            tdKor.setAttribute('colspan', '2');
+            tdKor.innerHTML = kor;
+
+            tr.appendChild(tdNum);
+            tr.appendChild(tdEng);
+            tr.appendChild(tdKor);
+
+            tBody.appendChild(tr);
+            numbering();
+        }
+
+        function removeLastWord(){
+            var targetList = document.getElementsByClassName('wordTr');
+            
+            if(!targetList[0]){
+                alert('삭제할 대상이 없습니다.');
+            }else{
+                target = targetList[targetList.length-1].remove();
+            }
+        }
+        function removeNumberWord(){
+            var wordTrList = document.getElementsByClassName('wordTr');
+            var targetList = document.getElementsByClassName('wordNum');
+            if(!wordTrList[0]){
+                alert('삭제할 대상이 없습니다.');
+            }else{
+                var number = prompt('삭제하고자 하는 번호를 입력하세요.');
+                if(1>number || number > targetList.length){
+                    alert('잘못 입력했습니다.\n다시 확인해주세요.');
+                    return;
+                }
+                
+
+                for(var i=0;i<wordTrList.length;i++){
+                    if(number == targetList[i].innerHTML){
+                        wordTrList[i].remove();
+                    }                   
+                }
+            }
+            numbering();
+        }
+        
+        function removeEngWord(){
+            var wordTrList = document.getElementsByClassName('wordTr');
+            var targetList = document.getElementsByClassName('wordEngTd');
+            if(!wordTrList[0]){
+                alert('삭제할 대상이 없습니다.');
+            }else{
+                var engWord = prompt('삭제하고자 하는 단어를 입력하세요.');
+                var flag = -1;
+                for(var i=0;i<wordTrList.length;i++){
+                    if(engWord == targetList[i].innerHTML){
+                        flag = i;
+                        wordTrList[i].remove();
+                    }                   
+                }
+            }
+            if(flag==-1){
+                alert('찾는 단어가 없습니다.');
+            }
+            numbering();
+        }
+
+        function numbering(){
+            var wordNum = document.getElementsByClassName('wordNum');
+
+            for(var i=0;i<wordNum.length;i++){
+                wordNum[i].innerHTML=i+1;
+            }
+        }
+
+    </script>
+</body>
+</html>
