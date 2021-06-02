@@ -15,12 +15,6 @@
         img{
             cursor: pointer;
         }
-        body{
-            border: black 1px solid;
-        }
-        h1{
-            text-align: center;
-        }
     </style>
     
 </head>
@@ -392,7 +386,6 @@
         }
     </script> -->
     
-    <h1>영단어장 만들기</h1>
     <!-- <input type="button" value="단어 추가" onclick="addWord()">
     <input type="button" value="단어 삭제(마지막 단어)" onclick="removeLastWord()">
     <input type="button" value="단어 삭제(번호)" onclick="removeNumber()">
@@ -420,31 +413,7 @@
             </tr>
         </thead>
         <tbody>
-            <!-- <tr class="wordList">
-                <td class="cnt"></td>
-                <td class="engWord" colspan="2">google</td>
-                <td class="korWork" colspan="2">구글</td>
-            </tr>
-            <tr class="wordList">
-                <td class="cnt"></td>
-                <td class="engWord" colspan="2">naver</td>
-                <td class="korWork" colspan="2">네이버</td>
-            </tr>
-            <tr class="wordList">
-                <td class="cnt"></td>
-                <td class="engWord" colspan="2">kakao</td>
-                <td class="korWork" colspan="2">카카오</td>
-            </tr>
-            <tr class="wordList">
-                <td class="cnt"></td>
-                <td class="engWord" colspan="2">coupang</td>
-                <td class="korWork" colspan="2">쿠팡</td>
-            </tr>
-            <tr class="wordList">
-                <td class="cnt"></td>
-                <td class="engWord" colspan="2">ms</td>
-                <td class="korWork" colspan="2">마이크로소프트</td>
-            </tr> -->
+
         </tbody>
     </table>
     <script>
@@ -519,16 +488,10 @@
                     chk=i;
                     break;
                 }
-                // 다른 로직
-                // if(li[i].innerHTML.substr(0, li[i].innerHTML.indexOf(' '))==eng){
-                //     li[i].remove();
-                //     chk=i;
-                // }
             }
             if(chk==-1){
                 alert('삭제할 대상이 없습니다.')
             }
-
             cnt();
         },false);
 

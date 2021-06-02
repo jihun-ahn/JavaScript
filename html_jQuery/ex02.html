@@ -25,11 +25,11 @@
         document.getElementsByTagName('h1');
         document.querySelector('h1');
 
-        // 가. 제이쿼리에서 문서 객체를 선택하는 방법
+        // 가. 제이쿼리에서 문서 객체를 선택하는 방법(css선택자 이용)
         $('h1');        // 태그이름 선택자
         $('*');         // 전체 선택자
         $('#header');   // #id 선택자
-        $('.title');    // .class 선택자
+        $('.title');    // .class 선택자 (이외 모든 css 선택자 사용 가능)
 
         // 나. 자바스크립트로 가져온 문서 객체를 이용하는 방법
         var h1 = document.getElementById('header');
