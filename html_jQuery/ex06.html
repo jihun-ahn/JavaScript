@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery/jquery-3.6.0.js"></script>
+
+    <style>
+        .box{
+            width: 500px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="move">태그가 움직입니다.</h1>
+    <div class="box"> <!-- 대상 -->
+        <h1>안녕하세요.</h1>
+    </div>
+    <script>
+        // 문서 객체의 이동 및 삽입
+
+        // 문서 객체의 삽입
+        // insertBefore('대상') : 대상의 형제 요소로서 앞부분에 끼워넣기
+        // (---이 대상 기준임)
+        // ------------------------------------------------------------------
+        // prepend('대상') : 대상의 내부에 앞부분에 끼워넣기
+        // 대상을 기준으로 문서 객체를 끼워 넣을 수 있다. 
+        // append('대상') : 대상의 내부에 뒷부분에 끼워넣기
+        // ------------------------------------------------------------------
+        // insertafter('대상') : 대상의 형제 요소로서 뒷부분에 끼워넣기
+        
+
+        //요소                                                       대상
+        $('<h2></h2>').html('안녕하세요 - insertBefore').insertBefore('.box');
+        $('<h2></h2>').html('안녕하세요 - prependTo').prependTo('.box');
+        $('<h2></h2>').html('안녕하세요 - appendTo').appendTo('.box');
+        $('<h2></h2>').html('안녕하세요 - insertAfter').insertAfter('.box');
+        
+        // insert, to가 메서드 체이닝에 유리해서 더 많이 사용됨.
+        //대상과 요소가 반대임
+
+        //대상                               요소
+        $('div').before('<h3>반갑습니다. - before</h3>');
+        $('div').prepend('<h3>반갑습니다. - prepend</h3>');
+        $('div').append('<h3>반갑습니다. - append</h3>');
+        $('div').after('<h3>반갑습니다. - after</h3>');
+
+        $('#move').insertAfter('.box'); // 이동 시킬때도 사용함
+    </script>
+</body>
+</html>

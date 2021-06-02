@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery/jquery-3.6.0.js"></script>
+
+    <style>
+        img{
+            margin: 0;
+            padding: 0;
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <img src="./img/birds-6211541_640.png" alt="">
+    <img src="./img/coffee-5009730_640.png" alt="">
+    <img src="./img/lemon-5703655_640.jpg" alt="">
+    <img src="./img/robin-6290872_640.jpg" alt="">
+    <img src="./img/sheep-6262928_640.jpg" alt="">
+
+    <script>
+        setInterval(function(){
+            $('img').first().appendTo('body');
+        },2000);
+    </script>
+</body>
+</html>

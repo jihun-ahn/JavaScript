@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery/jquery-3.6.0.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <h1>안녕하세요</h1>
+
+    <script>
+        // $('h1').on('click', function(event){    // 실행 할 때 화면에 있던 태그에만 이벤트 적용
+            // $('<h1></h1>').html('안녕하세요').appendTo('body');
+            // 새롭게 추가된 태그에는 이벤트가 적용되지 않는다.
+        // });
+
+        // 새롭게 만들어진 태그에도 이벤트 추가
+        // 해결법 1 : 이벤트 함수(핸들러)를 미리 만들어두고 각각의 h1 태그에 붙인다.
+        // var handler = function(){ //
+        //     $('<h1></h1>').html('안녕하세요').appendTo('body').click(handler);
+        // }
+
+        // $('h1').click(handler);
+
+        // 해결법 2 : body에 이벤트를 붙인다.
+        $('body').on('click', 'h1', function(event){
+            // 이벤트는 body에 붙이고 대상이 h1인 경우에만 작동
+            $('<h1></h1>').html('안녕하세요').appendTo('body');
+        });
+    </script>
+</body>
+</html>
