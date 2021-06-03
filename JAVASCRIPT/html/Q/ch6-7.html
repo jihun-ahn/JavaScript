@@ -141,7 +141,7 @@
         function setTd(idx, y, m, d){
             var max;
             d = Number(d);
-            if(y%4==0 && m==2){
+            if((y%4==0 && y%100!=0) || y%400==0 && m==2){
                 max = 29;
             }else if(m==2){
                 max = 28;        

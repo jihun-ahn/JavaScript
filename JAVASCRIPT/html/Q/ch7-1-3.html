@@ -10,15 +10,77 @@
     <form action="#" method="POST">
         <fieldset>
             <legend>게시글 보기</legend>
-            <strong>글 번호 :</strong> <input type="text" name="postNumber" id="postNumber" value="">
+            <strong>글 번호 :</strong> <input type="text" name="postNum" id="postNum"><br>
             <strong>작성자 :</strong> <input type="text" name="userid" id="userid" placeholder="아이디"><br>
-            <strong>글 제목 : </strong><input type="text" name="title" id="title" placeholder="제목"><br>
+            <strong>글 제목 :</strong> <input type="text" name="title" id="title" placeholder="제목"><br>
             <strong>글 내용 </strong><br>
             <textarea name="content" id="content" cols="30" rows="10" placeholder="글 내용"></textarea>
         </fieldset>
 
-        <input type="button" value="게시물 수정" id="posting">
-        <input type="button" value="게시물로 돌아가기" id="returnTo">
+        <input type="button" value="게시물 수정" id="posting" onclick="modifyPost()">
+        <input type="button" value="게시물로 돌아가기" id="returnTo" onclick="back()">
     </form>
+
+    <script>
+        var getNum = location.href.split('?');
+        var index = getNum[getNum.length-1];
+        var getStorage = localStorage.getItem('post'+index);
+        var post = JSON.parse(getStorage);
+
+        var postNum = document.getElementById('postNum');
+        postNum.value = post.num;
+
+        var userId = document.getElementById('userid');
+        userId.value= post.userId;
+        
+        var title = document.getElementById('title');
+        title.value= post.title;
+
+        var content = document.getElementById('content');
+        content.innerHTML = post.content;
+
+
+        function modifyPost(){
+            var modifyPost = {
+                num:document.getElementById('postNum').value,
+                userId:document.getElementById('userid').value,
+                title:document.getElementById('title').value,
+                content:document.getElementById('content').value,
+                date:nowTime()
+            };
+            var setStorage = localStorage.setItem('post'+index, JSON.stringify(modifyPost));
+
+
+            location.href="./ch7-1-1.html";
+
+        }
+
+        function nowTime(){
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = (now.getMonth()+1);
+            var day = now.getDate();
+            var hour = now.getHours();
+            var a_pm;
+            if(hour>12){
+                hour -= 12;
+                a_pm = '오후';
+            }else{
+                a_pm = '오전';
+            }
+            hour = String(hour);
+            
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+
+            var time = year+'. '+month+'. '+day+'. '+a_pm+' '+hour+':'+minute+':'+second;
+            return time;
+        }
+        function back(){
+            location.href="./ch7-1-1.html";
+        }
+
+
+    </script>
 </body>
 </html>

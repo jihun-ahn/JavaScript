@@ -21,12 +21,26 @@
         </fieldset>
 
         <input type="button" value="게시물 등록" onclick="posting()">
-        <input type="button" value="게시물로 돌아가기" onclick="returnTo()">
+        <input type="button" value="게시물로 돌아가기" onclick="back()">
     </form>
 
     <script>
         function posting(){
             var postNum = localStorage.length+1;            
+
+            console.log(nowTime);
+            var post = {
+                num:postNum,
+                userId:document.getElementById('userid').value,
+                title:document.getElementById('title').value,
+                content:document.getElementById('content').value,
+                date:nowTime()
+            };
+            localStorage.setItem('post'+postNum, JSON.stringify(post));
+            back();
+        }
+
+        function nowTime(){
             var now = new Date();
             var year = now.getFullYear();
             var month = (now.getMonth()+1);
@@ -44,20 +58,12 @@
             var minute = now.getMinutes();
             var second = now.getSeconds();
 
-            var nowTime = year+'. '+month+'. '+day+'. '+a_pm+' '+hour+':'+minute+':'+second;
-            console.log(nowTime);
-            var post = {
-                num:postNum,
-                userId:document.getElementById('userid').value,
-                title:document.getElementById('title').value,
-                content:document.getElementById('content').value,
-                date:nowTime
-            };
-            localStorage.setItem('post'+postNum, JSON.stringify(post));
-        }
+            var time = year+'. '+month+'. '+day+'. '+a_pm+' '+hour+':'+minute+':'+second;
 
-        function returnTo(){
-            location.href="./ch7-1-1.html"; 
+            return time;
+        }
+        function back(){
+            location.href="./ch7-1-1.html";
         }
     </script>
 </body>

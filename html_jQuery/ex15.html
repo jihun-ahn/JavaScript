@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jQuery/jquery-3.6.0.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            text-align: center;
+        }
+        /* animation_canvas */
+        #animation_canvas{
+            margin: 0 auto;
+            width: 640px;
+            height: 640px;
+            position: relative;
+            overflow: hidden;
+        }
+        /* slider_pannel */
+        .slider_pannel{
+            width: 3200px;
+            position: relative;
+        }
+        .slider_image{
+            width: 640px;
+            height: 640px;
+            float: left;
+        }
+        /* slider_text_pannel */
+        .slider_text_pannel{
+            position: absolute;
+            top: 200px;
+            left: 50px;
+        }
+        .slider_text{
+            position: absolute;
+            width: 250px;
+            height: 150px;
+            color: white;
+        }
+        /* control_pannel */
+        .control_pannel{
+            position: absolute;
+            top: 620px;
+            left: 297px;
+            height: 13px; /* 버튼 이미지 크기 */
+            overflow: hidden;
+        }
+        .control_btn{
+            width: 13px;
+            height: 46px;
+            position: relative;
+            float: left;
+            cursor: pointer;
+            background-image: url(./img/point_button.png);
+        }
+        .control_btn:hover{
+            top: -16px;
+        }
+        .control_btn:active, .control_btn.active{
+            top: -31px;
+        }
+    </style>
+</head>
+<body>
+    <h1>이미지 슬라이더</h1>
+    <div id="animation_canvas">
+        <div class="slider_pannel"> <!-- 이미지 -->
+            <img class="slider_image" src="./img/dust1.jpg" alt="1">
+            <img class="slider_image" src="./img/dust2.jpg" alt="2">
+            <img class="slider_image" src="./img/dust3.jpg" alt="3">
+            <img class="slider_image" src="./img/dust4.jpg" alt="4">
+            <img class="slider_image" src="./img/dust5.jpg" alt="5">
+        </div>
+        <div class="slider_text_pannel"> <!-- 텍스트 -->
+            <div class="slider_text">
+                <h1>Lorem ipsum</h1>
+                <p>explicabo dolore cumque!</p>
+            </div>
+            <div class="slider_text">
+                <h1>Lorem ipsum</h1>
+                <p>Eexplicabo dolore cumque!</p>
+            </div>
+            <div class="slider_text">
+                <h1>Lorem ipsum</h1>
+                <p>Eexplicabo dolore cumque!</p>
+            </div>
+            <div class="slider_text">
+                <h1>Lorem ipsum</h1>
+                <p>Eexplicabo dolore cumque!</p>
+            </div>
+            <div class="slider_text">
+                <h1>Lorem ipsum</h1>
+                <p>Eexplicabo dolore cumque!</p>
+            </div>
+        </div>
+        <div class="control_pannel"> <!-- 버튼 -->
+            <div class="control_btn"></div>
+            <div class="control_btn"></div>
+            <div class="control_btn"></div>
+            <div class="control_btn"></div>
+            <div class="control_btn"></div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+
+            $('.slider_text')
+            .css('left', -300)                                      // 초기 위치 지정(캔버스에서 안보이도록 밀어냄)
+            .each(function(index){                                  // 각 텍스트마다 번호 지정
+                $(this).attr('index', index);
+            });
+        
+            // 컨트롤 버튼에도 인덱스 번호 할당
+            $('.control_btn').each(function(index){
+                $(this).attr('index', index);                       // 각 버튼마다 번호 지정
+            }).click(function(){                                    //특정 버튼 클릭시 해당 버튼의 번호를 읽어옴
+                var index = $(this).attr('index');
+                moveSlider(index);
+                randomIndex=index;
+            });
+
+            // 이미지를 이동시키고 텍스트를 보여줄 함수
+            function moveSlider(index){
+                // 이미지 슬라이더를 이동
+                var moveLeft = -(index*640);
+                $('.slider_pannel').animate({
+                    left:moveLeft
+                }, 'slow');
+
+                // 텍스트를 보여주기 - 인덱스 대상
+                $('.slider_text[index='+index+']').show().animate({
+                    left:0
+                }, 'slow');
+
+                // 텍스트를 사라지게 하기 - 인덱스 대상에서 벗어난 것
+                $('.slider_text[index!='+index+']').hide('slow', function(){
+                    $(this).css('left', -300);
+                });
+
+                // 버튼 활성화 = 현재 인덱스에 해당하는 버튼
+                $('.control_btn[index='+index+']').addClass('active');
+                // 버튼 비활성화 = 현재 인덱스에 해당하지 않는 버튼
+                $('.control_btn[index!='+index+']').removeClass('active');
+
+            }
+            // 초기 슬라이더 위치는 랜덤
+            var randomIndex = Math.floor(Math.random()*5);
+            moveSlider(randomIndex);
+
+            setInterval(function(){
+                randomIndex++
+                
+                if(randomIndex==5){
+                    randomIndex=1;
+                }
+                moveSlider(randomIndex);
+                
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

@@ -6,12 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        *{
+            margin: 0 auto;
+            padding: 0;
+        }
+        h1{
+            text-align: center;
+        }
+        .center, table{
+            width: 80vh;
+
+        }
         input{
             width: 100%;
         }
+        
     </style>
 </head>
 <body>
+    <h1>게시판</h1>
+    <div class="center">
     <table border="1">
         <thead>
             <tr>
@@ -31,7 +45,7 @@
             </tr>
         </tfoot>
     </table>
-
+    </div>
     <script>
         var tbody = document.getElementById('postList');
 
@@ -40,19 +54,26 @@
             listLoad(i+1);
         }
         function listLoad(idx){
-            var tr = document.createElement('tr');
-            var tdNum = document.createElement('td');
-            var tdTitle = document.createElement('td');
-            var tdUserId = document.createElement('td');
-            var tdDate = document.createElement('td');
             var loadStorage = localStorage.getItem('post'+idx);
             var post = JSON.parse(loadStorage);
+            var tr = document.createElement('tr');
+            var tdNum = document.createElement('td');
             tdNum.innerHTML= post.num;
-            tdTitle.innerHTML= post.userId;
-            tdUserId.innerHTML= post.title;
+
+            var tdUserId = document.createElement('td');
+            tdUserId.innerHTML= post.userId;
+
+            var tdTitle = document.createElement('td');
+            tdTitle.addEventListener('click', function(e){
+                var idx = e.currentTarget.previousSibling.innerHTML;
+                console.log(idx);
+                location.href="./ch7-1-3.html?"+idx;
+            }, false);
+            tdTitle.innerHTML= post.title;
+
+            var tdDate = document.createElement('td');
             tdDate.innerHTML= post.date;
 
-            console.log('a');
             tr.appendChild(tdNum);
             tr.appendChild(tdTitle);
             tr.appendChild(tdUserId);
