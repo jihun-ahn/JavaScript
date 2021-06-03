@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>짝 맞추기</title>
+    <style>
+        *{
+            margin: 0 auto;
+            padding: 0;
+        }
+        h1{
+            text-align: center;
+            margin: 20px 0 60px 0;
+        }
+        table{
+            border-collapse: collapse;
+            
+        }
+        td{
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            background-color: darksalmon;
+            border: 1px solid black;
+        }
+        .hide{
+            visibility: hidden;
+        }
+        .select{
+            width: 100%;
+            height: 100%;
+        }
+        .end{
+            background-color: pink;
+        }
+        .sel{
+            background-color: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <h1>짝 맞추기</h1>
+    <table>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <script>
+        // var gameSize = Number(prompt('짝 맞추기 게임의 크기를 정하세요.(n x n)'));
+        var gameSize = 4;
+        var tbody = document.getElementsByTagName('tbody')[0];
+
+        var btn = document.createElement('input');
+        btn.setAttribute('type', 'button');
+        for(var i=0;i<gameSize;i++){                    // 행 만들기
+            var tr = document.createElement('tr');
+            for(var j=0;j<gameSize;j++){                // 각 행에 해당하는열 만들기
+                var td = document.createElement('td');
+                var span = document.createElement('span');
+                td.appendChild(span);
+                td.addEventListener('click', function(e){
+                    var text = e.currentTarget.firstChild;
+                    text.classList.remove('hide');
+                    text.classList.add('select');
+                    e.currentTarget.classList.add('sel');
+                    if(document.getElementsByClassName('select').length==2){
+                        var sel1 = document.getElementsByClassName('select')[0];
+                        var sel2 = document.getElementsByClassName('select')[1];
+                        if(sel1.innerHTML!=sel2.innerHTML){
+                            setTimeout(function(){
+                                sel1.classList.add('hide');
+                                sel2.classList.add('hide');
+                                sel1.parentElement.classList.remove('sel');
+                                sel2.parentElement.classList.remove('sel');
+                            }, 1000);
+
+                        }else{
+                            sel1.parentElement.classList.add('end');
+                            sel2.parentElement.classList.add('end');
+                            sel1.parentElement.classList.remove('sel');
+                            sel2.parentElement.classList.remove('sel');
+                        }
+
+                        sel1.classList.remove('select');
+                        sel2.classList.remove('select');
+                    }
+                    
+                }, false);
+                tr.appendChild(td);
+            }
+            tbody.appendChild(tr);
+        }
+
+        var max = gameSize*gameSize; // 15
+        var randonNum;
+        var arr = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H'];
+        var spanList = document.getElementsByTagName('span');
+        var select = [];
+        for(var i=0;i<max;i++){
+            randonNum = Math.floor(Math.random()*(arr.length));
+            spanList[i].innerHTML=arr.splice(randonNum, 1);         //알파벳 부여
+
+        }
+        setTimeout(function(){
+            for(var i=0;i<max;i++){
+                spanList[i].classList.add('hide');      // 숨기기
+            }
+        }, 1000);
+
+
+
+
+    </script>
+</body>
+</html>
