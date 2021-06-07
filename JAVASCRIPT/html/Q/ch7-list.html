@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>게시판</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>글 번호</th>
+                <th>글 제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            <!-- 저장된 리스트로부터 게시글 읽어오기 -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2"><input type="button" value="글 작성" onclick="input()"></td>
+                <td colspan="2"><input type="button" value="전체 글 삭제" onclick="listClear()"></td>
+            </tr>
+            
+        </tfoot>
+    </table>
+
+    <script>
+        var list = JSON.parse(localStorage.getItem('list'));
+
+        window.onload = function(){
+            if(list == undefined){
+                localStorage.setItem('list', JSON.stringify([]));
+                return;
+            }
+            // var board = JSON.parse(localStorage.getItem('board'));
+            
+            var tBody = document.getElementById('tbody');
+            tBody.innerHTML='';
+            for(var i=0;i<list.length;i++){
+                var tr = document.createElement('tr');
+                var td1 = document.createElement('td'); // 글 번호
+                td1.innerHTML = i+1;
+                var td2 = document.createElement('td'); // 글 제목
+                td2.innerHTML = list[i].title;
+                td2.setAttribute('onclick', 'view(this, '+i+')');
+                var td3 = document.createElement('td'); // 작성자
+                td3.innerHTML = list[i].name;
+                var td4 = document.createElement('td'); // 작성일
+                td4.innerHTML = list[i].regDate;
+
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                tr.appendChild(td4);
+
+                tBody.appendChild(tr);
+            }
+        }
+
+        function input(){
+            location.href = './ch7-input.html'
+        }
+
+        function listClear(){
+            localStorage.clear();
+
+        }
+
+        function view(tag, idx){
+            location.href = './ch7-view.html?idx='+idx;
+        }
+    </script>
+</body>
+</html>
