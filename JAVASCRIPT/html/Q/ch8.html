@@ -37,7 +37,14 @@
         }
         .sel{
             background-color: skyblue;
+            animation: card 500ms linear;
         }
+
+        @keyframes card{
+            100%{
+    	        transform: scaleX(-1);
+                }
+}
     </style>
 </head>
 <body>
@@ -61,34 +68,7 @@
                 var td = document.createElement('td');
                 var span = document.createElement('span');
                 td.appendChild(span);
-                td.addEventListener('click', function(e){
-                    var text = e.currentTarget.firstChild;
-                    text.classList.remove('hide');
-                    text.classList.add('select');
-                    e.currentTarget.classList.add('sel');
-                    if(document.getElementsByClassName('select').length==2){
-                        var sel1 = document.getElementsByClassName('select')[0];
-                        var sel2 = document.getElementsByClassName('select')[1];
-                        if(sel1.innerHTML!=sel2.innerHTML){
-                            setTimeout(function(){
-                                sel1.classList.add('hide');
-                                sel2.classList.add('hide');
-                                sel1.parentElement.classList.remove('sel');
-                                sel2.parentElement.classList.remove('sel');
-                            }, 1000);
-
-                        }else{
-                            sel1.parentElement.classList.add('end');
-                            sel2.parentElement.classList.add('end');
-                            sel1.parentElement.classList.remove('sel');
-                            sel2.parentElement.classList.remove('sel');
-                        }
-
-                        sel1.classList.remove('select');
-                        sel2.classList.remove('select');
-                    }
-                    
-                }, false);
+                td.addEventListener('click', clickEvent, false);
                 tr.appendChild(td);
             }
             tbody.appendChild(tr);
@@ -111,7 +91,41 @@
         }, 1000);
 
 
+        function clickEvent(e){
+            var text = e.currentTarget.firstChild;
+            setTimeout(function(){
+                text.classList.remove('hide');
+            }, 500);
+            text.classList.add('select');
+            e.currentTarget.classList.add('sel');
+            if(document.getElementsByClassName('select').length==2){
+                var sel1 = document.getElementsByClassName('select')[0];
+                var sel2 = document.getElementsByClassName('select')[1];
+                if(sel1.innerHTML!=sel2.innerHTML){
+                    setTimeout(function(){
+                        sel1.classList.add('hide');
+                        sel2.classList.add('hide');
+                        sel1.parentElement.classList.remove('sel');
+                        sel2.parentElement.classList.remove('sel');
+                    }, 1000);
 
+                }else{
+                    sel1.parentElement.removeEventListener('click', clickEvent);
+                    sel2.parentElement.removeEventListener('click', clickEvent);
+                    setTimeout(function(){
+                        sel1.parentElement.classList.add('end');
+                        sel2.parentElement.classList.add('end');
+                        sel1.parentElement.classList.remove('sel');
+                        sel2.parentElement.classList.remove('sel');
+                    }, 800);
+
+                }
+
+                sel1.classList.remove('select');
+                sel2.classList.remove('select');
+            }
+            
+        }
 
     </script>
 </body>
